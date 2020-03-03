@@ -1,23 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import {databaseRef} from "../initialize-firebase";
 
 function AutomobilesTable() {
+
+  const [autoData, setAutoData] = useState([]);
+
+  useEffect(() => {
+    databaseRef.once('value', snapshot => {
+      setAutoData(snapshot.val())
+    }).catch(error => console.log(error.message))
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="tableWrapper">
+      <div className="headers row">
+        <div className="id cell">ID</div>
+        <div className="manufacturer cell">Manufacturer</div>
+        <div className="model cell">Model</div>
+      </div>
+      {autoData.map(automobile => {
+        const {
+          id,
+          manufacturer,
+          model
+        } = automobile;
+
+        return (
+          <div className="row" key={id}>
+            <div className="id cell">{id}</div>
+            <div className="manufacturer cell">{manufacturer}</div>
+            <div className="model cell">{model}</div>
+          </div>
+        );
+        
+      })}
     </div>
   );
+  
 }
 
 export default AutomobilesTable;
