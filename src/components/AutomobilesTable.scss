@@ -15,6 +15,10 @@ $border: 1px solid #ccc;
 		&:last-of-type {
 			border-bottom: none;
 		}
+
+		&.headers {
+			font-weight: bold;
+		}
 	}
 
 	.cell {

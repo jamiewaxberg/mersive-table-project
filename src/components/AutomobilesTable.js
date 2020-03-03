@@ -11,10 +11,18 @@ function AutomobilesTable() {
     }).catch(error => console.log(error.message))
   });
 
+
+  function handleSorting(element) {
+    const sortedAutoData = autoData.sort((a, b) => -1)
+    // console.log(sortedAutoData)
+    setAutoData(sortedAutoData)
+    console.log(autoData)
+  }
+
   return (
     <div className="tableWrapper">
       <div className="headers row">
-        <div className="id cell">ID</div>
+        <div className="id cell" onClick={() => handleSorting('id')}>ID</div>
         <div className="manufacturer cell">Manufacturer</div>
         <div className="model cell">Model</div>
       </div>
