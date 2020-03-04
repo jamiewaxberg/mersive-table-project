@@ -1,8 +1,18 @@
-$border: 1px solid #ccc;
+$border-color: #ccc;
+$border: 1px solid $border-color;
+
+.searchField {
+	display: flex;
+	margin: 2em auto;
+	font-size: 1rem;
+	padding: 0.5rem;
+	max-width: 29em;
+  width: 100%;
+}
 
 .tableWrapper {
 	display: table;
-	max-width: 35em;
+	max-width: 30em;
   width: 100%;
   margin: 2em auto;
   border: $border;
@@ -43,5 +53,5 @@ $border: 1px solid #ccc;
 	width: 1em;
 	position: relative;
   top: 2px;
-  color: #ccc;
+  color: $border-color;
 }
