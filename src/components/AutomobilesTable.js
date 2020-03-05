@@ -34,23 +34,11 @@ function AutomobilesTable() {
   function handleSorting(element, orderAsc, setOrderAsc) {
     autoData.sort((a, b) => {
       if (orderAsc) {
-        if (a[element] > b[element]) {
-          return -1;
-        } 
-        if (a[element] < b[element]) {
-          return  1;
-        }
-      } else if (!orderAsc) {
-        if (a[element] > b[element]) {
-          return 1;
-        } 
-        if (a[element] < b[element]) {
-          return  -1;
-        }
+        return a[element] > b[element] ? -1 : 1;
+      } else {
+        return a[element] > b[element] ? 1 : -1;
       }
-      return 0;
-    })
-
+    });
     setOrderAsc(orderAsc !== null ? !orderAsc : true)
     setAutoData([...autoData])
   }
