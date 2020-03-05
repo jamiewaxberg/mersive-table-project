@@ -92,9 +92,9 @@ function AutomobilesTable() {
             model
           } = automobile;
           return (
-            <div className={manufacturer === 'Ford' ? 'row bold' : 'row'} key={id}>
+            <div className="row" key={id}>
               <div className="id cell">{id}</div>
-              <div className="manufacturer cell">{manufacturer}</div>
+              <div className={manufacturer === 'Ford' ? 'manufacturer cell bold' : 'manufacturer cell'}>{manufacturer}</div>
               <div className="model cell">{model.toUpperCase()}</div>
             </div>
           );

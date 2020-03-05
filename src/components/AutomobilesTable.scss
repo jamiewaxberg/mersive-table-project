@@ -26,12 +26,8 @@ $border: 1px solid $border-color;
 			border-bottom: none;
 		}
 
-		&.headers,
-		&.bold {
-			font-weight: bold;
-		}
-
 		&.headers {
+			font-weight: bold;
 			cursor: pointer;
 		}
 	}
@@ -44,6 +40,10 @@ $border: 1px solid $border-color;
 
     &:last-of-type {
 			border-right: none;
+		}
+
+		&.bold {
+			font-weight: bold;
 		}
 	}
 }
