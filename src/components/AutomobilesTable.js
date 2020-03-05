@@ -69,7 +69,7 @@ function AutomobilesTable() {
 
   return (
     <Fragment>
-      <input type="text" className="searchField" placeholder="Seatch automobile data" value={searchValue || ""} onChange={handleSearchInput} />
+      <input type="text" className="searchField" placeholder="Seatch automobile data" value={searchValue} onChange={handleSearchInput} />
       <div className="tableWrapper">
         <div className="headers row">
           <div className="id cell" onClick={() => handleSorting('id', idOrderAsc, setIdOrderAsc)}>
