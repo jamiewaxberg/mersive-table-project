@@ -4,7 +4,7 @@ import {databaseRef} from "../initialize-firebase";
 function AutomobilesTable() {
 
   const [autoData, setAutoData] = useState([]);
-  const [filteredAutoData, setFilteredAutoData] = useState();
+  const [filteredAutoData, setFilteredAutoData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
   const [idOrderAsc, setIdOrderAsc] = useState(true);
@@ -16,6 +16,19 @@ function AutomobilesTable() {
       setAutoData(snapshot.val())
     }).catch(error => console.log(error.message))
   }, []);
+
+  useEffect(() => {
+    let searchResults = [];
+    for (let i = 0; i < autoData.length; i++) {
+      autoData[i].id = autoData[i].id.toString()
+      let currentObjValues = Object.values(autoData[i]);
+      const filteredArray = currentObjValues.filter(arrayValue => arrayValue.toLowerCase().includes(searchValue.toLowerCase()))
+      if (filteredArray.length) {
+        searchResults.push(autoData[i])
+      }
+    }
+    setFilteredAutoData([...searchResults])
+  }, [searchValue, autoData]);
 
 
   function handleSorting(element, orderAsc, setOrderAsc) {
@@ -42,41 +55,8 @@ function AutomobilesTable() {
     setAutoData([...autoData])
   }
 
-  function handleSearchInput(value) {
-    setSearchValue(value)
-
-    console.log(value)
-
-    // if (value === "") {
-    //   setAutoData([...autoData])
-    // }
-
-    // debugger;
-    let searchResults = [];
-    // autoData.filter(auto => {
-    //   if (Object.values(auto).indexOf(searchValue)
-    // } 
-    // console.log(value)
-    for (let i = 0; i < autoData.length; i++) {
-      autoData[i].id = autoData[i].id.toString()
-      let currentObjValues = Object.values(autoData[i]);
-      // console.log(currentObjValues);
-      const filteredArray = currentObjValues.filter(arrayValue => arrayValue.includes(value))
-      console.log(filteredArray)
-      if (filteredArray.length) {
-        searchResults.push(autoData[i])
-      }
-      console.log(searchResults)
-    }
-    setFilteredAutoData([...searchResults])
-    // const searchResults = autoData.filter(automobile => {
-    //   const objValues = Object.values(automobile);
-    //   console.log(objValues)
-    //   const filteredValuesArray = objValues.filter(arrayValue => arrayValue.includes(searchValue))
-    //   // console.log(filteredValuesArray)
-    //   // return objValues.filter(arrayValue => arrayValue.includes(searchValue))
-    // })
-
+  function handleSearchInput(e) {
+    setSearchValue(e.target.value)
   }
 
   function renderIcon(order) {
@@ -89,7 +69,7 @@ function AutomobilesTable() {
 
   return (
     <Fragment>
-      <input type="text" className="searchField" placeholder="Seatch automobile data" value={searchValue} onChange={(e) => handleSearchInput(e.target.value)} />
+      <input type="text" className="searchField" placeholder="Seatch automobile data" value={searchValue || ""} onChange={handleSearchInput} />
       <div className="tableWrapper">
         <div className="headers row">
           <div className="id cell" onClick={() => handleSorting('id', idOrderAsc, setIdOrderAsc)}>
@@ -105,13 +85,12 @@ function AutomobilesTable() {
             {renderIcon(modelOrderAsc)}
           </div>
         </div>
-        {filteredAutoData || autoData.map(automobile => {
+        {(searchValue ? filteredAutoData : autoData).map(automobile => {
           const {
             id,
             manufacturer,
             model
           } = automobile;
-
           return (
             <div className={manufacturer === 'Ford' ? 'row bold' : 'row'} key={id}>
               <div className="id cell">{id}</div>
