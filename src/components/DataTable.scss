@@ -54,4 +54,11 @@ $border: 1px solid $border-color;
 	position: relative;
   top: 2px;
   color: $border-color;
+
+  &.edit {
+  	left: 5px;
+  	top: 5px;
+  	cursor: pointer;
+  	padding: 3px;
+  }
 }

@@ -1,0 +1,14 @@
+.cell {
+	display: table-cell;
+  max-width: fit-content;
+  padding: 1em 1.5em;
+  border-right: $border;
+
+  &:last-of-type {
+		border-right: none;
+	}
+
+	span.bold {
+		font-weight: bold;
+	}
+}

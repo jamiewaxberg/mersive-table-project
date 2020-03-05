@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.scss';
-import AutomobilesTable from './components/AutomobilesTable.js'
+import DataTable from './components/DataTable.js'
 
 function App() {
   return (
-    <AutomobilesTable />
+    <DataTable />
   );
 }
 

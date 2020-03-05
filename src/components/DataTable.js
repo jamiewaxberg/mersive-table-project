@@ -1,7 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import {databaseRef} from "../initialize-firebase";
+import {databaseRef} from '../initialize-firebase';
+import TableCell from './TableCell.js'
 
-function AutomobilesTable() {
+function DataTable() {
   const [autoData, setAutoData] = useState([]);
   const [filteredAutoData, setFilteredAutoData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -14,7 +15,7 @@ function AutomobilesTable() {
   useEffect(() => {
     databaseRef.once('value', snapshot => {
       setAutoData(snapshot.val())
-    }).catch(error => console.log(error.message))
+    }).catch((e) => console.log(e.message))
   }, []);
 
   // when searchValue changes, search the data and assign it to separate state value
@@ -82,7 +83,7 @@ function AutomobilesTable() {
           </div>
         </div>
         {/* if the search input has a value, display filtered data. otherwise, display data from firebase */}
-        {(searchValue ? filteredAutoData : autoData).map(automobile => {
+        {(searchValue ? filteredAutoData : autoData).map((automobile, index) => {
           const {
             id,
             manufacturer,
@@ -90,9 +91,16 @@ function AutomobilesTable() {
           } = automobile;
           return (
             <div className="row" key={id}>
-              <div className="id cell">{id}</div>
-              <div className={manufacturer === 'Ford' ? 'manufacturer cell bold' : 'manufacturer cell'}>{manufacturer}</div>
-              <div className="model cell">{model.toUpperCase()}</div>
+              {/*<div className="id cell"><span>{id}</span></div>
+              <div className={manufacturer === 'Ford' ? 'manufacturer cell bold' : 'manufacturer cell'}>
+                <span>{manufacturer}</span>
+              </div>
+              <div className="model cell">
+                <span>{model.toUpperCase()}</span>
+              </div>*/}
+              <TableCell id={id} />
+              <TableCell manufacturer={manufacturer} isEditable={true} />
+              <TableCell model={model} isEditable={true} />
             </div>
           );
         })}
@@ -102,4 +110,4 @@ function AutomobilesTable() {
   
 }
 
-export default AutomobilesTable;
+export default DataTable;
