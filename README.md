@@ -27,3 +27,8 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+## Database
+
+The database for this project is hosted with Firebase.
+[https://mersiv-table-project-2.firebaseio.com/]
+
