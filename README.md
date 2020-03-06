@@ -29,6 +29,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Database
 
-The database for this project is hosted with Firebase.
-[https://mersiv-table-project-2.firebaseio.com/]
+The database for this project is hosted with Firebase.<br />
+https://mersiv-table-project-2.firebaseio.com/
 
