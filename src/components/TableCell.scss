@@ -11,4 +11,17 @@
 	span.bold {
 		font-weight: bold;
 	}
+
+	input {
+		font-size: 1em;
+    max-width: 6em;
+	}
+
+	button {
+		margin-left: 5px;
+		border-image: none;
+		cursor: pointer;
+    position: relative;
+    bottom: 2px;
+	}
 }
