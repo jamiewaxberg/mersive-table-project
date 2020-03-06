@@ -19,7 +19,6 @@ function DataTable() {
           var item = childSnapshot.val();
           returnArr.push(item);
       });
-      console.log('returnArr', returnArr)
       setAutoData(returnArr)
     })
   }, []);
