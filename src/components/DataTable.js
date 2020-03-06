@@ -11,16 +11,12 @@ function DataTable() {
   const [manufacturerOrderAsc, setManufacturerOrderAsc] = useState(null);
   const [modelOrderAsc, setModelOrderAsc] = useState(null);
 
-  // getting data from firebase
+  // getting data from firebase & modeling into array
   useEffect(() => {
     databaseRef.on('value', snapshot => {
-      // console.log(snapshot.val())
       const returnArr = [];
-
       snapshot.forEach(function(childSnapshot) {
           var item = childSnapshot.val();
-          item.key = childSnapshot.key;
-
           returnArr.push(item);
       });
       console.log('returnArr', returnArr)
@@ -28,14 +24,14 @@ function DataTable() {
     })
   }, []);
 
-  console.log(autoData)
 
   // when searchValue changes, search the data and assign it to separate state value
   useEffect(() => {
+    console.log(autoData)
     let searchResults = [];
     for (let i = 0; i < autoData.length; i++) {
       // stringify number value because filter will break otherwise
-      // autoData[i].id = autoData[i].id.toString()
+      autoData[i].id = autoData[i].id.toString()
       // turn obj values into filterable array
       let currentObjValues = Object.values(autoData[i]);
       // search each index of array for substring being searched

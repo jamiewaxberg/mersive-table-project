@@ -49,17 +49,11 @@ function TableCell(props) {
 	}
 
 	function saveToDb() {
-		// console.log(database.ref("/1/manufacturer"))
 		if (manufacturer) {
-			database.ref("/").set({
-				manufacturer: inputValue,
-			})
-		} 
-		// else if (model) {
-		// 	`${databaseRef}/${index}/${model}`.set({
-		// 		model: inputValue,
-		// 	})
-		// }
+			database.ref(`/${index}/manufacturer`).set(inputValue)
+		} else if (model) {
+			database.ref(`/${index}/model`).set(inputValue)
+		}
 	}
 
 	return (
