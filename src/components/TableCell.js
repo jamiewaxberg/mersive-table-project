@@ -1,20 +1,22 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import {databaseRef} from '../initialize-firebase';
+import {database} from '../initialize-firebase';
 
 function TableCell(props) {
-
-	const [inEditMode, setInEditMode] = useState(false);
 
 	const {
 		id,
 		manufacturer,
 		model,
 		isEditable = false,
+		index,
 	} = props;
+
+	const [inEditMode, setInEditMode] = useState(false);
+	const [inputValue, setInputValue] = useState(id || manufacturer || model)
 
 	function renderFieldText() {
 		if (!inEditMode) {
-			return <span className={manufacturer === 'Ford' ? 'bold' : ''}>{id || manufacturer || model.toUpperCase()}</span>;
+			return <span className={manufacturer === 'Ford' ? 'bold' : ''}>{id || manufacturer || model}</span>;
 		} else {
 			return;
 		}
@@ -32,8 +34,8 @@ function TableCell(props) {
 		if (inEditMode) {
 			return (
 				<Fragment>
-					<input type="text" value={manufacturer || model} />
-					<button onClick={() => setInEditMode(false)}>Save</button>
+					<input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
+					<button onClick={submitEditField}>Save</button>
 				</Fragment>
 			) ;
 		} else {
@@ -41,8 +43,23 @@ function TableCell(props) {
 		}
 	}
 
-	function saveToDb() {
+	function submitEditField() {
+		saveToDb();
+		setInEditMode(false);
+	}
 
+	function saveToDb() {
+		// console.log(database.ref("/1/manufacturer"))
+		if (manufacturer) {
+			database.ref("/").set({
+				manufacturer: inputValue,
+			})
+		} 
+		// else if (model) {
+		// 	`${databaseRef}/${index}/${model}`.set({
+		// 		model: inputValue,
+		// 	})
+		// }
 	}
 
 	return (

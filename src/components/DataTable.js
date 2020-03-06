@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import {databaseRef} from '../initialize-firebase';
+import {databaseRef} from "../initialize-firebase";
 import TableCell from './TableCell.js'
 
 function DataTable() {
@@ -13,17 +13,29 @@ function DataTable() {
 
   // getting data from firebase
   useEffect(() => {
-    databaseRef.once('value', snapshot => {
-      setAutoData(snapshot.val())
-    }).catch((e) => console.log(e.message))
+    databaseRef.on('value', snapshot => {
+      // console.log(snapshot.val())
+      const returnArr = [];
+
+      snapshot.forEach(function(childSnapshot) {
+          var item = childSnapshot.val();
+          item.key = childSnapshot.key;
+
+          returnArr.push(item);
+      });
+      console.log('returnArr', returnArr)
+      setAutoData(returnArr)
+    })
   }, []);
+
+  console.log(autoData)
 
   // when searchValue changes, search the data and assign it to separate state value
   useEffect(() => {
     let searchResults = [];
     for (let i = 0; i < autoData.length; i++) {
       // stringify number value because filter will break otherwise
-      autoData[i].id = autoData[i].id.toString()
+      // autoData[i].id = autoData[i].id.toString()
       // turn obj values into filterable array
       let currentObjValues = Object.values(autoData[i]);
       // search each index of array for substring being searched
@@ -90,17 +102,10 @@ function DataTable() {
             model
           } = automobile;
           return (
-            <div className="row" key={id}>
-              {/*<div className="id cell"><span>{id}</span></div>
-              <div className={manufacturer === 'Ford' ? 'manufacturer cell bold' : 'manufacturer cell'}>
-                <span>{manufacturer}</span>
-              </div>
-              <div className="model cell">
-                <span>{model.toUpperCase()}</span>
-              </div>*/}
+            <div className="row" key={index}>
               <TableCell id={id} />
-              <TableCell manufacturer={manufacturer} isEditable={true} />
-              <TableCell model={model} isEditable={true} />
+              <TableCell manufacturer={manufacturer} isEditable={true} index={index} />
+              <TableCell model={model} isEditable={true} index={index} />
             </div>
           );
         })}
