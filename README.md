@@ -1,8 +1,8 @@
-This is a project done as a take-home challenge while interviewing with Mersive
+This is a project done as a take-home challenge while interviewing with Mersive.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-SVG icons provided by https://fontawesome.com/
+SVG icons provided by https://fontawesome.com/.
 
 ## Available Scripts
 
