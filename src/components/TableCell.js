@@ -16,7 +16,7 @@ function TableCell(props) {
 	// render field text conditionally depending on which cell type we're in, when we're not in edit mode
 	function renderFieldText() {
 		if (!inEditMode) {
-			return <span className={manufacturer === 'Ford' ? 'bold' : ''}>{id || manufacturer || model}</span>;
+			return <span className={manufacturer === 'Ford' ? 'bold' : ''}>{id || manufacturer || model.toUpperCase()}</span>;
 		} else {
 			return;
 		}
